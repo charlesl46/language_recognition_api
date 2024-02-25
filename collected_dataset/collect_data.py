@@ -30,7 +30,7 @@ if __name__=="__main__":
                     wikipedia.set_lang(language)
                     article = wikipedia.random()
                     page = wikipedia.page(article, preload=False)
-                    summary = page.summary
+                    summary : str = page.summary
                     sentences = summary.split(".")
                     
                     with db.atomic():

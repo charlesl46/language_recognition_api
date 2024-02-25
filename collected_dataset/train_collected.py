@@ -11,7 +11,9 @@ from rich.console import Console
 C = Console()
 
 df = pd.read_csv("dataset_collected.csv")
+
 languages_to_keep = ["fr","en","es"]
+
 df = df[df['language'].isin(languages_to_keep)]
 
 print(f"Dataset's shape : {df.shape}")
@@ -21,14 +23,15 @@ print("Language's repartition :\n", langue_counts)
 nombre_de_langues = len(langue_counts)
 print("Total number of languages :", nombre_de_langues)
 
-corpus = df["sentence"].values
+corpus = list(map(lambda x : str(x),df["sentence"].values))
 labels = df["language"].values
 
+
 with C.status("Vectorization"):
-    model = Word2Vec(corpus.tolist(), vector_size=100, window=5, min_count=1, workers=4)
+    model = Word2Vec(corpus, vector_size=100, window=5, min_count=1, workers=4)
 
     vecteurs_phrases = []
-    for phrase in corpus.tolist():
+    for phrase in corpus:
         mots = phrase.split()
         vecteurs_mots = [model.wv[mot] for mot in mots if mot in model.wv]
 
