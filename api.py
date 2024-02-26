@@ -1,3 +1,7 @@
+"""
+.. include:: README.md
+"""
+
 from flask import Flask, request, jsonify
 import pickle
 from gensim.models import Word2Vec
